@@ -1,9 +1,14 @@
 WebRequest := Object clone do(
+    urlParser := method(request, 
+        request println
+        if(request == "/", "index.html", request replaceSeq("/", ""))
+    )
+
     handleSocket := method(aSocket,
         aSocket streamReadNextChunk
         request := aSocket readBuffer betweenSeq("GET ", " HTTP")
-        path := request replaceSeq("/", "")
-        f := File with(path) 
+        filename := urlParser(request)
+        f := File with(filename) 
         if(f exists, 
             f streamTo(aSocket)
         , 
