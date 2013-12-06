@@ -1,6 +1,5 @@
 WebRequest := Object clone do(
     urlParser := method(request, 
-        request println
         if(request == "/", "index.html", request replaceSeq("/", ""))
     )
 
